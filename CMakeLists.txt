@@ -50,8 +50,9 @@ add_library (KinfuLib SHARED ${KinfuLibSrc} ${cuda_objs})
 target_link_libraries(KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS} ${CUDA_LIBRARIES})
 
 
-add_executable (Kinfu tools/kinfuLS_app.cpp tools/evaluation.cpp tools/capture.cpp )
-target_link_libraries (Kinfu KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS} )
-#target_link_libraries (Kinfu ${PCL_LIBRARIES} ${OpenCV_LIBS})
-#target_link_libraries (Kinfu ${OpenCV_LIBS})
-  #Link each part of PCL-seperetly?
+add_executable (KinfuLS tools/kinfuLS_app.cpp tools/evaluation.cpp tools/capture.cpp )
+target_link_libraries (KinfuLS KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS} )
+
+add_executable (KinfuLS_meshOut tools/process_kinfu_large_scale_output.cpp)
+target_link_libraries (KinfuLS_meshOut KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS} )
+
