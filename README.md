@@ -1,2 +1,1 @@
-
-Got it to not-link with PCL's built-in kinfu stuff.
+The only important file here is the CMakeLists.txt, as that is the only thing changed.
