@@ -1,2 +1,2 @@
 
-I'm not sure how to get it to link with PCL, and some of GPU, but not all of it.
+Got it to not-link with PCL's built-in kinfu stuff.

@@ -23,7 +23,17 @@ include_directories(${PCL_GPU_CONTAINERS_INCLUDE_DIR})
 #CUDA_ADD_LIBRARY(cudashit SHARED
 #  src/cuda/
 #)
+#message("${PCL_LIBRARIES}")
+
+string(REPLACE ${PCL_GPU_KINFU_LARGE_SCALE_LIBRARY} "" PCL_NOKINFU "${PCL_LIBRARIES}")
+string(REPLACE ${PCL_GPU_KINFU_LIBRARY} "" PCL_NOKINFU2 "${PCL_NOKINFU}")
+
+#message("nothin")
+#message( "${PCL_NOKINFU2}")
+#message("nothin")
+
 add_executable (Kinfu tools/kinfuLS_app.cpp tools/evaluation.cpp)
+target_link_libraries (Kinfu ${PCL_NOKINFU2} ${OpenCV_LIBS})
 #target_link_libraries (Kinfu ${PCL_LIBRARIES} ${OpenCV_LIBS})
 #target_link_libraries (Kinfu ${OpenCV_LIBS})
   #Link each part of PCL-seperetly?
