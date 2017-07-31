@@ -32,8 +32,16 @@ string(REPLACE ${PCL_GPU_KINFU_LIBRARY} "" PCL_NOKINFU2 "${PCL_NOKINFU}")
 #message( "${PCL_NOKINFU2}")
 #message("nothin")
 
-add_executable (Kinfu tools/kinfuLS_app.cpp tools/evaluation.cpp)
-target_link_libraries (Kinfu ${PCL_NOKINFU2} ${OpenCV_LIBS})
+
+file(GLOB KinfuLibSrc
+    "src/*.cpp"
+)
+add_library (KinfuLib SHARED ${KinfuLibSrc} )
+target_link_libraries(KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS})
+
+
+add_executable (Kinfu tools/kinfuLS_app.cpp tools/evaluation.cpp tools/capture.cpp )
+target_link_libraries (Kinfu KinfuLib ${PCL_NOKINFU2} ${OpenCV_LIBS} )
 #target_link_libraries (Kinfu ${PCL_LIBRARIES} ${OpenCV_LIBS})
 #target_link_libraries (Kinfu ${OpenCV_LIBS})
   #Link each part of PCL-seperetly?
