@@ -4,9 +4,29 @@ project(Kinfu)
 #find_package(Boost REQUIRED COMPONENTS )
 #find_package(PCL REQUIRED COMPONENTS common io KDTree visualization GPU)
 find_package(PCL REQUIRED)
-find_package(CUDA QUIET REQUIRED)
+
 find_package(OpenCV REQUIRED)
 #find_package(Eigen REQUIRED)
+
+option(USECOCL "Use Cuda On CL instead of cuda" OFF)
+
+if(USECOCL)
+	#find_package(COCL)
+	include($ENV{HOME}/coriander/share/cocl/cocl.cmake)
+	macro(CUDA_COMPILE name)
+	message( "Cuda-Compiling via COCL: ${name}")
+#	message( "${ARGN}")
+#	cocl_add_executable("${name}_exe" "${ARGN}")
+	cocl_add_library("${name}_lib" "${ARGN}")
+#	set("${name}" "${name}_exe;${name}_lib")
+	set("${name}" "${name_lib}")
+#	message("${name}: ${name}_exe;${name}_lib")
+	endmacro()
+	set(CUDA_LIBRAREIS ${Coriander_LIBRARIES})
+else()
+	find_package(CUDA REQUIRED)
+endif()
+
 
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin )
 
@@ -31,14 +51,14 @@ if(NOT UNIX OR APPLE)
 	add_definitions(-DPCLAPI_EXPORTS)
 endif()
 
-FILE(GLOB cuda src/cuda/*.cu src/cuda/*.h*)
+FILE(GLOB cuda RELATIVE src/cuda/*.cu src/cuda/*.h*)
 
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "--ftz=true;--prec-div=false;--prec-sqrt=false")		
 CUDA_COMPILE(cuda_objs ${cuda})
 
 #End PCL taken code.
 
-message("${cuda_objs}")
+#message("${cuda_objs}")
 
 string(REPLACE ${PCL_GPU_KINFU_LARGE_SCALE_LIBRARY} "" PCL_NOKINFU "${PCL_LIBRARIES}")
 string(REPLACE ${PCL_GPU_KINFU_LIBRARY} "" PCL_NOKINFU2 "${PCL_NOKINFU}")
