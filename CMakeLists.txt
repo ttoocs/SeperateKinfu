@@ -12,7 +12,7 @@ option(USE_COCL "Use Cuda On CL instead of cuda (UNTESTED)" OFF)
 
 if(USE_COCL)
 	include($ENV{HOME}/coriander/share/cocl/cocl.cmake)
-  ENABLE_CUDA_FUDGE
+  ENABLE_CUDA_FUDGE()
 else()
 	find_package(CUDA REQUIRED)
 endif()
