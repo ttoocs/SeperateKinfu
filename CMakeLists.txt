@@ -8,27 +8,16 @@ find_package(PCL REQUIRED)
 find_package(OpenCV REQUIRED)
 #find_package(Eigen REQUIRED)
 
-option(USECOCL "Use Cuda On CL instead of cuda" OFF)
+option(USE_COCL "Use Cuda On CL instead of cuda (UNTESTED)" OFF)
 
-if(USECOCL)
-	#find_package(COCL)
+if(USE_COCL)
 	include($ENV{HOME}/coriander/share/cocl/cocl.cmake)
-	macro(CUDA_COMPILE name)
-	message( "Cuda-Compiling via COCL: ${name}")
-#	message( "${ARGN}")
-#	cocl_add_executable("${name}_exe" "${ARGN}")
-	cocl_add_library("${name}_lib" "${ARGN}")
-#	set("${name}" "${name}_exe;${name}_lib")
-	set("${name}" "${name_lib}")
-#	message("${name}: ${name}_exe;${name}_lib")
-	endmacro()
-	set(CUDA_LIBRAREIS ${Coriander_LIBRARIES})
+  ENABLE_CUDA_FUDGE
 else()
 	find_package(CUDA REQUIRED)
 endif()
 
-
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIRECTORY}/bin )
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src)
