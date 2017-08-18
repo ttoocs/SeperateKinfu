@@ -40,7 +40,7 @@ if(NOT UNIX OR APPLE)
 	add_definitions(-DPCLAPI_EXPORTS)
 endif()
 
-FILE(GLOB cuda RELATIVE src/cuda/*.cu src/cuda/*.h*)
+FILE(GLOB cuda src/cuda/*.cu src/cuda/*.h*)
 
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "--ftz=true;--prec-div=false;--prec-sqrt=false")		
 CUDA_COMPILE(cuda_objs ${cuda})
