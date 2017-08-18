@@ -1,5 +1,9 @@
 #!/bin/bash
 
+(
+
+cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 if [ "$1" == "" ]; then
   echo "Symlinking based off of s2017 folder structure"
   PCL_DIR="../pcl"
@@ -17,3 +21,4 @@ for i in $COPYDIRS; do
   ln -s $PCL_DIR/$KINFUDIR/$i ./
 done
 
+)
