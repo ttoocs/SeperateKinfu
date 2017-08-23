@@ -23,7 +23,10 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CUDA_TOOLKIT_INCLUDE})
 
-add_definitions(-DHAVE_OPENCV)
+add_definitions(
+  -DHAVE_OPENCV
+  -DNDEBUG
+)
 
 include_directories(${PCL_INCLUDE_DIRS})
 
